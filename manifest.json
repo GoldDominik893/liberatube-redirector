@@ -1,0 +1,35 @@
+{
+
+  "manifest_version": 2,
+  "name": "BadYT-Redirector",
+  "version": "1.0",
+
+  "description": "Automatically redirects YouTube links to a Bad YouTube instance",
+  
+  "icons": {
+    "48": "icons/icon128.png",
+    "96": "icons/icon128.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "run_at": "document_start",
+      "js": ["main.js"]
+    }
+  ],
+
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": "icons/icon128.png",
+    "default_title": "BadYT-Redirector",
+    "default_popup": "options.html"
+  },
+
+  "options_ui": {
+    "page": "options.html"
+  },
+
+  "permissions": ["storage"]
+
+}

@@ -1,24 +1,31 @@
-  var loc = window.location.href;
-  var newloc = loc;
-  if (newloc.includes("m.youtube.com")) {
-    newloc = newloc.replace("m.youtube.com", "badyt.lol");
-  }
-  else if (newloc.includes("youtube")) {
-    newloc = newloc.replace("www.youtube.com/watch?v=", "badyt.lol/vi/?w=");
-  }
-  else if (newloc.includes("youtube")) {
-    newloc = newloc.replace("m.youtube.com/watch?v=", "badyt.lol/vi/?w=");
-  }
-  else if (newloc.includes("youtube")) {
-    newloc = newloc.replace("www.youtube.com/", "badyt.lol/");
-  }
-  else if (newloc.includes("youtu.be")) {
-    newloc = newloc.replace("youtu.be/", "badyt.lol/vi/w=");
-  }
-  else if (newloc.includes("youtube-nocookie")) {
-    newloc = newloc.replace("www.youtube-nocookie.com/", "badyt.lol/");
-  }
-  if (newloc.includes("/results?search_query")) {
-    newloc = newloc.replace("www.youtube.com/results?search_query", "badyt.lol/search/?q=");
-  }
-  window.location = newloc;
+chrome.webRequest.onBeforeRequest.addListener(
+  function(details) {
+    let redirectUrl = "";
+    const url = new URL(details.url);
+    
+    if (url.hostname === "www.youtube.com" || url.hostname === "youtube.com") {
+      const path = url.pathname.substring(1);
+      const parts = path.split("/");
+      const [prefix, id] = parts;
+      
+      if (prefix === "watch") {
+        redirectUrl = `https://liberatube.store/watch/?v=${id}`;
+      } else if (prefix === "search") {
+        const searchQuery = url.searchParams.get("q");
+        redirectUrl = `https://liberatube.store/search/?q=${searchQuery}`;
+      } else if (prefix === "playlist") {
+        redirectUrl = `https://liberatube.store/playlist/?id=${id}`;
+      } else if (prefix === "channel") {
+        redirectUrl = `https://liberatube.store/channel/?id=${id}`;
+      }
+      
+      if (redirectUrl) {
+        return { redirectUrl: redirectUrl };
+      }
+    }
+  },
+  {
+    urls: ["*://*.youtube.com/*"]
+  },
+  ["blocking"]
+);

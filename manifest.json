@@ -9,9 +9,9 @@
   "action": {
     "default_popup": "index.html",
     "default_icon": {
-      "16": "icon_16.png",
-      "48": "icon_48.png",
-      "128": "icon_128.png"
+      "16": "small.png",
+      "48": "small.png",
+      "128": "large.png"
     }
   },
   "icons": {

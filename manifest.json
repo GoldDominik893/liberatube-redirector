@@ -9,15 +9,15 @@
   "action": {
     "default_popup": "index.html",
     "default_icon": {
-      "16": "small.png",
-      "48": "small.png",
-      "128": "large.png"
+      "16": "icons/small.png",
+      "48": "icons/small.png",
+      "128": "icons/large.png"
     }
   },
   "icons": {
-    "16": "small.png",
-    "48": "small.png",
-    "128": "large.png"
+    "16": "icons/small.png",
+    "48": "icons/small.png",
+    "128": "icons/large.png"
   },
   "host_permissions": [
     "*://*.youtube.com/*"

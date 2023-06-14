@@ -1,35 +1,34 @@
 {
-
-  "manifest_version": 2,
-  "name": "BadYT-Redirector",
+  "manifest_version": 3,
+  "name": "Liberatube redirector",
   "version": "1.0",
-
-  "description": "Automatically redirects YouTube links to a Bad YouTube instance",
-  
-  "icons": {
-    "48": "icons/icon128.png",
-    "96": "icons/icon128.png"
+  "permissions": ["webRequest", "webRequestBlocking", "declarativeNetRequest", "<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
   },
-
-  "content_scripts": [
-    {
-      "matches": ["*://*.youtube.com/*"],
-      "run_at": "document_start",
-      "js": ["main.js"]
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icon_16.png",
+      "48": "icon_48.png",
+      "128": "icon_128.png"
     }
+  },
+  "icons": {
+    "16": "small.png",
+    "48": "small.png",
+    "128": "large.png"
+  },
+  "host_permissions": [
+    "*://*.youtube.com/*"
   ],
-
-  "browser_action": {
-    "browser_style": true,
-    "default_icon": "icons/icon128.png",
-    "default_title": "BadYT-Redirector",
-    "default_popup": "index.html"
-  },
-
-  "options_ui": {
-    "page": "index.html"
-  },
-
-  "permissions": ["storage"]
-
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "redirect_rules",
+        "enabled": true,
+        "path": "redirect_rules.json"
+      }
+    ]
+  }
 }
